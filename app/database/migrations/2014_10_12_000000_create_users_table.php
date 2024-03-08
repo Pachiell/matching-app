@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('icon')->nullable();
-            $table->integer('display');
-            $table->tinyInteger('authority');
+            $table->integer('display')->default(1);
+            $table->integer('authority');
             $table->timestamps();
         });
     }

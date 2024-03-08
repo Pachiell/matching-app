@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -64,10 +66,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (isset($data['icon'])) {
+            $icon = $data['icon'];
+            $fileName = Str::random() . '.' . $icon->getClientOriginalExtension();
+            $path = Storage::disk("public")->putFileAs('profile', $icon, $fileName);
+            $iconPath = "/storage/" . $path;
+        }else{
+            $iconPath = "/storage/profile/default_icon.png";
+        }
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'icon' => $iconPath,
         ]);
     }
 }
