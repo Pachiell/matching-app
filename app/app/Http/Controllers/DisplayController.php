@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Service;
+use App\Request;
+use App\User;
 
 class DisplayController extends Controller
 {
@@ -47,6 +49,7 @@ class DisplayController extends Controller
         
         $userdata = Auth::user();
 
+
         return view('forms/edit_profile_form',[
             'results' => $userdata,
         ]);
@@ -61,11 +64,30 @@ class DisplayController extends Controller
         ]);
     }
 
+    public function Userrequest(){
+
+        $request = Request::with('service')->where('user_id',Auth::id())->get();
+
+        return view('Userrequests',[
+            'results' => $request,
+        ]);
+    }
+
     public function bookmark(){
 
         return view('Bookmarks',[
 
         ]);
+    }
+
+    public function RequestList(){
+        $services = Service::with('request')->where('user_id',Auth::id())->whereHas('request')->get();
+        
+
+        return view('RequestLists',[
+            'results' => $services,
+        ]);
+   
     }
 
     public function create_service_form(){
@@ -76,10 +98,10 @@ class DisplayController extends Controller
 
     }
 
-    public function request_service_form(){
+    public function request_service_form(Service $service){
 
         return view('forms/request_service_form',[
-
+            'result' => $service,
         ]);
 
     }

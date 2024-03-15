@@ -16,9 +16,9 @@ class CreateRequestsTable extends Migration
         Schema::create('Requests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('comment');
-            $table->integer('tel');
+            $table->string('tel')->nullable();
             $table->string('e-mail');
-            $table->date('deadline');
+            $table->date('deadline')->nullable();
             $table->string('status')->nullable();
             $table->integer('user_id');
             $table->integer('service_id');

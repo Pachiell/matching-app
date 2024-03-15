@@ -14,7 +14,7 @@ class PasswordChangeController extends Controller
 
     public function Receive_destination()
     {
-        return view('forms/receive_destination_form', []);
+        return view('auth/passwords/receive_destination_form', []);
     }
 
     public function SendMail(Request $request)

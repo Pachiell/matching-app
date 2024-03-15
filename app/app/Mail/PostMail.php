@@ -30,14 +30,16 @@ class PostMail extends Mailable
      */
     public function build()
     {
-        $url = "http://localhost/change_password_form";
+        // $url = "http://localhost/change_password_form";
 
-        return $this->view('mail.send')
-        ->subject('パスワード再設定のご案内') // メールタイトル
-        ->from('matching.app.info310@gmail.com') // 送信元
-        ->with([
-            'url' => $url,
-            'id' => $this->id,
-            ]);
+        // return $this->view('mail.send')
+        // ->subject('パスワード再設定のご案内') // メールタイトル
+        // ->from('matching.app.info310@gmail.com') // 送信元
+        // ->with([
+        //     'url' => $url,
+        //     'id' => $this->id,
+        //     ]);
+
+        return $this;
     }
 }

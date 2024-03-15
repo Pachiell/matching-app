@@ -13,7 +13,7 @@ class CreateRequestData extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class CreateRequestData extends FormRequest
     public function rules()
     {
         return [
-            //
+            'comment' => 'required|string',
+            'e-mail' => 'required|string',
         ];
     }
 }

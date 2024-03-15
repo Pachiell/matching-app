@@ -18,7 +18,9 @@
                   </a>
                 </div>
                 <div>
+                    <a href="{{ route('RequestList')}}">
                     <button type="button" class="btn btn-warning">依頼確認</button>
+                    </a>
                 </div>
             </div>
         </div>

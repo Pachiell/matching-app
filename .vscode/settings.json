@@ -1,9 +1,9 @@
-{
-    "editor.defaultFormatter": "shufo.vscode-blade-formatter",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-    },
-    "workbench.editor.openSideBySideDirection": "right",
-    "explorer.compactFolders": false,
-    }
+// {
+//     "editor.defaultFormatter": "shufo.vscode-blade-formatter",
+//     "editor.formatOnSave": true,
+//     "editor.codeActionsOnSave": {
+//     "source.fixAll.eslint": "explicit"
+//     },
+//     "workbench.editor.openSideBySideDirection": "right",
+//     "explorer.compactFolders": false,
+//     }

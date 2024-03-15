@@ -21,6 +21,11 @@
                     </a>
                 </div>
                 <div>
+                    <a href="{{ route('Myrequests') }}">
+                        <button type="button" class="btn bg-pink">My依頼</button>
+                    </a>
+                </div>
+                <div>
                     <a href="{{ route('Bookmarks') }}">
                         <button type="button" class="btn btn-warning">ブックマーク</button>
                     </a>
@@ -50,8 +55,8 @@
                         <th scope="col">{{ $result['amount'] }}</th>
                         <th scope="col">{{ $result['comment'] }}</th>
                         <td>
-                            <a href="{{ route('request_service_form') }}">
-                                <button type="button" class="btn btn-custom-pink">依頼する</button></a>
+                            <a href="{{ route('request_service_form', $result['id']) }}">
+                                <button type="button" class="btn bg-pink">依頼する</button></a>
                         </td>
                     </tr>
                 @endforeach

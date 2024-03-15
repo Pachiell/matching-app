@@ -5,6 +5,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header custom-card-header d-flex justify-content-center bg-clear">ユーザー情報編集</div>
+                    <div class="text-right mr-3"><button type="button" id="btn-Withdrawal"
+                            class="btn btn-outline-secondary btn-sm" onclick="WithdrawalCheck()">退会する</button>
+                    </div>
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -13,7 +16,8 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form class="g-3" action="{{ route('edit_profile', $results['id']) }}" enctype="multipart/form-data" method="POST">
+                        <form class="g-3" action="{{ route('edit_profile', $results['id']) }}"
+                            enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="text-center">
                                 <div class="form-group">
@@ -27,19 +31,14 @@
                                 </div>
                                 <div class="input-group col-8 mb-3">
                                     <span class="input-group-text" id="basic-addon1">ユーザー名</span>
-                                    <input type="text" class="form-control" name="name" aria-describedby="basic-addon1"
-                                        value="{{ $results['name'] }}">
+                                    <input type="text" class="form-control" name="name"
+                                        aria-describedby="basic-addon1" value="{{ $results['name'] }}">
                                 </div>
                                 <hr>
                                 <div class="input-group col-8 mb-3">
                                     <span class="input-group-text" id="basic-addon2">メールアドレス</span>
-                                    <input type="text" class="form-control" name="email" aria-describedby="basic-addon2"
-                                        value="{{ $results['email'] }}">
-                                </div>
-                                <hr>
-                                <div class="input-group col-8 mb-3">
-                                    <span class="input-group-text" id="basic-addon3">パスワード</span>
-                                    <input type="password" class="form-control" name="password" aria-describedby="basic-addon3">
+                                    <input type="text" class="form-control" name="email"
+                                        aria-describedby="basic-addon2" value="{{ $results['email'] }}">
                                 </div>
                                 <hr>
                             </div>
@@ -78,5 +77,16 @@
             preview.style.display = 'block';
         }
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    const routeName = "{{ route('delete_profile', $results['id']) }}";
+
+    function WithdrawalCheck() {
+        const res = confirm("これまでのデータが全て削除されます。\n本当に退会しても宜しいですか？");
+        if (res == true) {
+            window.location.href = routeName;
+        } else {
+            alert("キャンセルしました");
+        }
     }
 </script>

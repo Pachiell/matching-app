@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','icon','oneword','comment'
+        'name', 'email', 'password','icon','oneword','comment','token'
     ];
 
     /**
@@ -42,8 +42,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Service');
     }
 
-    public function mail(){
-        return $this->hasMany('App\Mail\PostMail');
+    public function request(){
+        return $this->hasMany('App\Request');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+    $this->notify(new \App\Notifications\PasswordResetNotification($token));
     }
 
 

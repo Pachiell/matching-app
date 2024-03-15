@@ -74,6 +74,7 @@ class RegisterController extends Controller
         }else{
             $iconPath = "/storage/profile/default_icon.png";
         }
+
         
         return User::create([
             'name' => $data['name'],
