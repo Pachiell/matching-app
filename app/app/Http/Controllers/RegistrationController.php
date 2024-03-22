@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Http\Request as DefaultRequest;
 use App\Service;
 use App\User;
 use App\Request;
+use App\Bookmark;
+use App\Violation;
 use App\Http\Requests\CreatePostData;
 use App\Http\Requests\CreateRequestData;
 use App\Http\Requests\EditUserData;
@@ -84,6 +86,8 @@ class RegistrationController extends Controller
             $service->image = $imagePath;
         }
 
+        $service->status = "掲載中";
+
         $service->save();
 
         return redirect()->route('Myposts');
@@ -136,7 +140,8 @@ class RegistrationController extends Controller
     public function deleteService(Service $service)
     {
 
-        $service->delete();
+        $service->del_flg = 1;
+        $service->save();
 
         return redirect()->route('Myposts');
     }
@@ -203,12 +208,119 @@ class RegistrationController extends Controller
         return redirect()->route('Myrequests');
     }
 
-    public function JudgeRequestForm(Service $service){
-        dd($service);
-        $services = Service::with('request')->where('user_id',Auth::id())->whereHas('request')->get();
+    public function CreateBookmark(DefaultRequest $request)
+    {
 
-        return view('RequestLists',[
-            'results' => $services,
+        $bookmark = new Bookmark;
+        $user_id = Auth::user()->id;
+
+        $columns = ['service_id', 'title', 'amount', 'comment', 'image'];
+
+        foreach ($columns as $column) {
+            $bookmark->$column = $request->$column;
+        }
+        $bookmark->user_id = $user_id;
+
+        $bookmark->save();
+        $result = "保存完了";
+
+        return $result;
+    }
+
+    public function JudgeRequestForm(Request $request, Service $service)
+    {
+
+        $request_data = Request::where('id', $request->id)->first();
+        $service_data = Service::where('id', $service->id)->first();
+
+        return view('forms/judge_request_form', [
+            'request' => $request_data,
+            'service' => $service_data,
         ]);
+    }
+
+    public function JudgeRequestApproval(Request $request, Service $service)
+    {
+
+        $request->status = "進行中";
+        $request->del_flg = 1;
+
+        $service->status = "進行中";
+
+        $request->save();
+        $service->save();
+
+        return redirect()->route('RequestList');
+    }
+
+    public function JudgeRequestReject(Request $request, Service $service)
+    {
+
+        $request->status = "却下";
+        $request->del_flg = 1;
+        $request->transaction = 1;
+
+        $service->status = "進行中";
+
+        $request->save();
+        $service->save();
+
+        return redirect()->route('RequestList');
+    }
+
+    public function deleteBookmarkForm(Bookmark $bookmark)
+    {
+
+        return view('forms/delete_bookmark_form', [
+            'id' => $bookmark,
+            'result' => $bookmark,
+        ]);
+    }
+
+    public function deleteBookmark(Bookmark $bookmark)
+    {
+        $bookmark->del_flg = 1;
+        $bookmark->save();
+
+        return redirect()->route('Bookmarks');
+    }
+    public function ViolationCountService(DefaultRequest $request)
+    {
+        $violation = new Violation;
+        $user_id = Auth::user()->id;
+
+        $violation_data = Violation::where('user_id', $user_id)->where('service_id', $request->service_id)->first();
+
+        if (isset($violation_data)) {
+            $result = "保存完了";
+            return $result;
+        } else {
+            $violation->service_id = $request->service_id;
+            $violation->user_id = $user_id;
+            $result = "保存完了";
+            $violation->save();
+        }
+
+        return $result;
+    }
+
+    public function ViolationCountRequest(DefaultRequest $request)
+    {
+        $violation = new Violation;
+        $user_id = Auth::user()->id;
+
+        $violation_data = Violation::where('user_id', $user_id)->where('request_id', $request->request_id)->first();
+
+        if (isset($violation_data)) {
+            $result = "保存完了";
+            return $result;
+        } else {
+            $violation->request_id = $request->request_id;
+            $violation->user_id = $user_id;
+            $result = "保存完了";
+            $violation->save();
+        }
+
+        return $result;
     }
 }

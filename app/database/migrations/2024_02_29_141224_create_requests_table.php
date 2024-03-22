@@ -22,6 +22,8 @@ class CreateRequestsTable extends Migration
             $table->string('status')->nullable();
             $table->integer('user_id');
             $table->integer('service_id');
+            $table->integer('del_flg');
+            $table->integer('transaction');
             $table->timestamps();
         });
     }

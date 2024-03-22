@@ -12,16 +12,6 @@
             </div>
 
             <div class="title-right">
-                <div>
-                  <a href="{{ route('create_service_form')}}">
-                    <button type="button" class="btn bg-orange">新規投稿</button>
-                  </a>
-                </div>
-                <div>
-                    <a href="{{ route('RequestList')}}">
-                    <button type="button" class="btn btn-warning">依頼確認</button>
-                    </a>
-                </div>
             </div>
         </div>
     </head>
@@ -46,8 +36,8 @@
                     <th>{{ $result['amount'] }}</th>
                     <th>{{ $result['comment'] }}</th>
                     <th>{{ $request['comment'] }}</th>
-                    <th><button type="button" class="btn btn-success" onclick="location.href='{{ route('judge_request_form',['service' => $request['id']]) }}'">確認</button></th>
-                    <th><button type="button" class="btn btn-danger" onclick="location.href='{{ route('delete_service_form',['service' => $request['id']]) }}'">削除</button></th>
+                    <th><button type="button" class="btn btn-success" onclick="location.href='{{ route('judge_request_form',['request' => $request['id'],'service' => $result['id']]) }}'">確認</button></th>
+                    {{-- <th><button type="button" class="btn btn-danger" onclick="location.href='{{ route('delete_service_form',['request' => $request['id']]) }}'">削除</button></th> --}}
                 </tr>
                 @endforeach
                 @endforeach

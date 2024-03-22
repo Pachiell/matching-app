@@ -19,8 +19,10 @@ class CreateServicesTable extends Migration
             $table->integer('amount');
             $table->string('comment');
             $table->string('image')->nullable();
+            $table->string('status')->nullable();
             $table->tinyInteger('del_flg');
             $table->integer('user_id');
+            $table->integer('transaction');
             $table->timestamps();
         });
     }

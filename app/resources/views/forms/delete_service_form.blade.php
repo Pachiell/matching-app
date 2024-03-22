@@ -22,7 +22,7 @@
                                     @csrf
                                     <label for="amount" class="form-label">金額</label>
                                     <div class="d-flex justify-content-center">
-                                    <input type="text" class="form-control name="amount" id="amount" value="{{ $result['amount'] }}" disabled>
+                                    <input type="text" class="form-control" name="amount" id="amount" value="{{ $result['amount'] }}" disabled>
                                     <div class="fs-20">円</div>
                                     </div>
                                 </div>

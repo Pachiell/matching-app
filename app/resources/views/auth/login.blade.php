@@ -33,6 +33,9 @@
         <div class="text-center">
           <a href="{{ route('receive.destination') }}">パスワードの変更はこちらから</a>
         </div>
+        <a href="{{ route('ReadOnly') }}">
+        <button class="btn-success mt-5">閲覧専用ページ(未ログイン)</button>
+        </a>
       </div>
     </div>
   </div>

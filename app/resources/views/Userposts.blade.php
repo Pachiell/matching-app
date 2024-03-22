@@ -18,8 +18,13 @@
                   </a>
                 </div>
                 <div>
+                    <a href="{{ route('Myrequests') }}">
+                        <button type="button" class="btn bg-pink">My依頼へ</button>
+                    </a>
+                </div>
+                <div>
                     <a href="{{ route('RequestList')}}">
-                    <button type="button" class="btn btn-warning">依頼確認</button>
+                    <button type="button" class="btn btn-primary">依頼確認</button>
                     </a>
                 </div>
             </div>
@@ -30,6 +35,7 @@
         <table class="table table-bordered">
             <thead class="table-bordered bg-clear">
                 <tr>
+                    <th scope="col">投稿No</th>
                     <th scope="col">タイトル</th>
                     <th scope="col">金額</th>
                     <th scope="col">内容</th>
@@ -40,6 +46,7 @@
             <tbody>
                 @foreach($results as $result)
                 <tr>
+                    <th>{{ $result['id'] }}</th>
                     <th>{{ $result['title'] }}</th>
                     <th>{{ $result['amount'] }}</th>
                     <th>{{ $result['comment'] }}</th>
